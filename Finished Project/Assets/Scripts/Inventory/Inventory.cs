@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Inventory : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class Inventory : MonoBehaviour {
 
 	void Awake ()
 	{
+		Console.WriteLine("test");
 		instance = this;
 	}
 
@@ -23,19 +25,32 @@ public class Inventory : MonoBehaviour {
 	// Our current list of items in the inventory
 	public List<Item> items = new List<Item>();
 
+
+
+	public bool AddInInventory(Item item) {
+		if(items.Count >= space) {
+			return false;
+		}
+		items.Add(item);
+		if (onItemChangedCallback != null)
+				onItemChangedCallback.Invoke ();
+		return true;
+	}
+
 	// Add a new item if enough room
 	public void Add (Item item)
 	{
 		if (item.showInInventory) {
 			if (items.Count >= space) {
 				Debug.Log ("Not enough room.");
-				return;
+				return false;
 			}
 
 			items.Add (item);
 
 			if (onItemChangedCallback != null)
 				onItemChangedCallback.Invoke ();
+			
 		}
 	}
 
