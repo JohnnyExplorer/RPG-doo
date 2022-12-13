@@ -12,7 +12,7 @@ public class Item : ScriptableObject {
 	// Called when the item is pressed in the inventory
 	public virtual void Use ()
 	{
-		// Use the item
+		// Use the item`
 		// Something may happen
 	}
 
